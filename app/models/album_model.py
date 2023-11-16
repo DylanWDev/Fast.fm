@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from typing import List
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from app.models.base_model import Base
-from app.models.artist_model import Artist
+
 
 
 class Album(Base):

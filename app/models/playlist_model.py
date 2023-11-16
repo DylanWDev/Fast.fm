@@ -2,7 +2,6 @@ from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from typing import List
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from app.models.base_model import Base
-from app.models.song_model import Song
 
 
 class Playlist(Base):
@@ -10,9 +9,10 @@ class Playlist(Base):
 
     id: Mapped[id] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = Column(String)
-    user_id: Mapped[int] = Column(Integer)
+    creater_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
     to_song: Mapped[List["SongPlaylist"]] = relationship(back_populates="to_playlist")
+    to_user2: Mapped[List["PlaylistListener"]] = relationship(back_populates="to_playlist2")
 
 
 class SongPlaylist(Base):
