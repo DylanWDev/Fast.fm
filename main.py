@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-import app.models
-import app.api
+from app.models import User, Song, SongArtist, Artist, Playlist, PlaylistListener, Album, AlbumArtist
 from database import engine
+
 app = FastAPI()
 
 @app.get("/")
