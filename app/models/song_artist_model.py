@@ -2,12 +2,13 @@ from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from app.models.base_model import CustomBase
 
-class AlbumArtist(CustomBase):
-    __tablename__ = "album_artist"
+
+class SongArtist(CustomBase):
+    __tablename__ = "song_artist"
 
     id = Column(Integer, primary_key=True, index=True)
-    album_id = Column(Integer, ForeignKey("album.id"))
+    song_id = Column(Integer, ForeignKey("song.id"))
     artist_id = Column(Integer, ForeignKey("artist.id"))
 
-    album = relationship("Album", back_populates="artists")
-    artist = relationship("Artist", back_populates="albums")
+    song = relationship("Song", back_populates="artists")
+    artist = relationship("Artist", back_populates="songs")

@@ -1,12 +1,13 @@
-from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from app.models.base_model import Base
+from app.models.base_model import CustomBase
 
-class Song(Base):
+class Song(CustomBase):
     __tablename__ = "song"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
     album_id = Column(Integer, ForeignKey("album.id"))
 
-    to_playlist2 = relationship("SongPlaylist", back_populates="to_song2")
+    artists = relationship("SongArtist", back_populates="song")
+    playlists = relationship("SongPlaylist", back_populates="song")
