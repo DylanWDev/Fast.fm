@@ -1,14 +1,11 @@
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
-from typing import List
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from app.models.base_model import Base
-
-
 
 class Artist(Base):
     __tablename__ = "artist"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    name: Mapped[str] = Column(String)
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
 
-    to_album2: Mapped[List["AlbumArtist"]] = relationship(back_populates="to_artist")
+    to_album2 = relationship("AlbumArtist", back_populates="to_artist")

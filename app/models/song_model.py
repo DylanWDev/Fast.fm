@@ -1,15 +1,12 @@
-from sqlalchemy import Column, String, Integer, Date, ForeignKey
-from typing import List
-from sqlalchemy.orm import relationship, mapped_column, Mapped
+from sqlalchemy import Column, String, Integer, ForeignKey
+from sqlalchemy.orm import relationship
 from app.models.base_model import Base
-
-
 
 class Song(Base):
     __tablename__ = "song"
 
-    id: Mapped[id] = mapped_column(primary_key=True, index=True)
-    name: Mapped[str] = Column(String)
-    album_id: Mapped[int] = mapped_column(ForeignKey("album.id"))
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String)
+    album_id = Column(Integer, ForeignKey("album.id"))
 
-    to_playlist2: Mapped[List["SongPlaylist"]] = relationship(back_populates="to_song2")
+    to_playlist2 = relationship("SongPlaylist", back_populates="to_song2")
