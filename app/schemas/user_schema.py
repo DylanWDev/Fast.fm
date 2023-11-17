@@ -8,3 +8,6 @@ class UserSchema(BaseModel):
     email: Optional[str] = None
     password: Optional[str] = None
     created_at: Optional[TIMESTAMP] = None
+
+    class Config:
+        orm_mode = True
