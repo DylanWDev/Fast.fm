@@ -4,7 +4,7 @@ from database import Base
 
 class AlbumArtist(Base):
     __tablename__ = "album_artist"
-    
+
     id = Column(Integer, primary_key=True, index=True)
     album_id = Column(Integer, ForeignKey("album.id"))
     artist_id = Column(Integer, ForeignKey("artist.id"))
@@ -28,5 +28,5 @@ class Artist(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
 
-    albums = relationship("Album", secondary=AlbumArtist, back_populates="artists")
-    songs = relationship("Song", secondary=SongArtist, back_populates="artists")
+    albums = relationship("AlbumArtist", back_populates="artists")
+    songs = relationship("SongArtist", back_populates="artists")

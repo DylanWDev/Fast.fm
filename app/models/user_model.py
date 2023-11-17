@@ -10,6 +10,6 @@ class User(Base):
     email = Column(String, index=True)
     password = Column(String)
     created_at = Column(String)
-    
+
     playlists = relationship("Playlist", back_populates="creator")
-    playlist_listeners = relationship("Playlist", secondary="playlist_listener", back_populates="listeners")
+    playlist_listeners = relationship("PlaylistListener", back_populates="listeners")

@@ -8,7 +8,7 @@ class PlaylistListener(Base):
     id = Column(Integer, primary_key=True, index=True)
     playlist_id = Column(Integer, ForeignKey("playlist.id"))
     user_id = Column(Integer, ForeignKey("user.id"))
-    
+
     playlist = relationship("Playlist", back_populates="listeners")
     user = relationship("User", back_populates="playlist_listeners")
 
@@ -20,5 +20,5 @@ class Playlist(Base):
     creater_id = Column(Integer, ForeignKey("user.id"))
 
     creator = relationship("User", back_populates="playlists")
-    songs = relationship("Song", secondary="song_playlist", back_populates="playlists")
-    listeners = relationship("User", secondary=PlaylistListener, back_populates="playlist_listeners")
+    songs = relationship("SongPlaylist", back_populates="playlists")
+    listeners = relationship("PlaylistListener", back_populates="playlist_listeners")
