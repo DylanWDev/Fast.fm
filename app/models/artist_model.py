@@ -29,5 +29,5 @@ class Artist(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     name: Mapped[str] = Column(String, index=True)
 
-    albums: Mapped[List["AlbumArtist"]] = relationship(back_populates="artists")
-    songs: Mapped[List["SongArtist"]] = relationship(back_populates="artists")
+    albums: Mapped[List["AlbumArtist"]] = relationship(back_populates="artist")
+    songs: Mapped[List["SongArtist"]] = relationship(back_populates="artist")

@@ -14,4 +14,4 @@ class User(Base):
     created_at: Mapped[str] = Column(index=True)
 
     playlists: Mapped[List["Playlist"]] = relationship(back_populates="creator")
-    playlist_listeners: Mapped[List["PlaylistListener"]] = relationship(back_populates="listeners")
+    playlist_listeners: Mapped[List["PlaylistListener"]] = relationship(back_populates="user")

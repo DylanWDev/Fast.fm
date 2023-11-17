@@ -24,7 +24,7 @@ class Song(Base):
     album_id: Mapped[int] = mapped_column(ForeignKey("album.id"))
 
     album: Mapped[List["Album"]] = relationship(back_populates="songs")
-    artists: Mapped[List["SongArtist"]] = relationship(back_populates="songs")
-    playlists: Mapped[List["SongPlaylist"]] = relationship(back_populates="songs")
+    artists: Mapped[List["SongArtist"]] = relationship(back_populates="song")
+    playlists: Mapped[List["SongPlaylist"]] = relationship(back_populates="song")
 
     #artist = relationship("Artist", back_populates="songs")

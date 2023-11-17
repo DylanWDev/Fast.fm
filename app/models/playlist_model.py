@@ -22,5 +22,5 @@ class Playlist(Base):
     creater_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
     creator: Mapped[List["User"]] = relationship(back_populates="playlists")
-    songs: Mapped[List["SongPlaylist"]] = relationship(back_populates="playlists")
-    listeners: Mapped[List["PlaylistListener"]] = relationship(back_populates="playlist_listeners")
+    songs: Mapped[List["SongPlaylist"]] = relationship(back_populates="playlist")
+    listeners: Mapped[List["PlaylistListener"]] = relationship(back_populates="playlist")
