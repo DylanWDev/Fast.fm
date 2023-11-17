@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from database import SessionLocal
 from app.schemas.album_schema import AlbumSchema
-import app.utils
+from app.controllers.album_controller import list_album
 
 router = APIRouter()
 
@@ -13,6 +13,6 @@ def get_db():
     finally:
         db.close()
 
-@routes.post('/create_album')
-async def create_album(request: AlbumSchema, db:Session = Depends(get_db)):
-    return app.utils.create_album(db, request)
+@router.get('/list_album/')
+async def list_albums(db:Session = Depends(get_db)):
+    return list_album(db)

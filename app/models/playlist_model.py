@@ -1,24 +1,28 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
-from sqlalchemy.orm import relationship
+from typing import List
+from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
+from app.models.user_model import User
+from app.models.song_model import SongPlaylist
+
 
 class PlaylistListener(Base):
     __tablename__ = "playlist_listener"
 
-    id = Column(Integer, primary_key=True, index=True)
-    playlist_id = Column(Integer, ForeignKey("playlist.id"))
-    user_id = Column(Integer, ForeignKey("user.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    playlist_id: Mapped[int] = mapped_column(Integer, ForeignKey("playlist.id"))
+    user_id: Mapped[int] = Column(Integer, ForeignKey("user.id"))
 
-    playlist = relationship("Playlist", back_populates="listeners")
-    user = relationship("User", back_populates="playlist_listeners")
+    playlist: Mapped[List["Playlist"]] = relationship(back_populates="listeners")
+    user: Mapped[List["User"]] = relationship(back_populates="playlist_listeners")
 
 class Playlist(Base):
     __tablename__ = "playlist"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    creater_id = Column(Integer, ForeignKey("user.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    name: Mapped[str] = Column(String, index=True)
+    creater_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"))
 
-    creator = relationship("User", back_populates="playlists")
-    songs = relationship("SongPlaylist", back_populates="playlists")
-    listeners = relationship("PlaylistListener", back_populates="playlist_listeners")
+    creator: Mapped[List["User"]] = relationship(back_populates="playlists")
+    songs: Mapped[List["SongPlaylist"]] = relationship(back_populates="playlists")
+    listeners: Mapped[List["PlaylistListener"]] = relationship(back_populates="playlist_listeners")

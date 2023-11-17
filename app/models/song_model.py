@@ -1,34 +1,33 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
-from sqlalchemy.orm import relationship
+from typing import List
+from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
+from app.models.playlist_model import Playlist
+from app.models.artist_model import SongArtist
+from app.models.album_model import Album
 
-class SongArtist(Base):
-    __tablename__ = "song_artist"
-
-    id = Column(Integer, primary_key=True, index=True)
-    song_id = Column(Integer, ForeignKey("song.id"))
-    artist_id = Column(Integer, ForeignKey("artist.id"))
-
-    song = relationship("Song", back_populates="artists")
-    artist = relationship("Artist", back_populates="songs")
 
 class SongPlaylist(Base):
     __tablename__ = "song_playlist"
 
-    id = Column(Integer, primary_key=True, index=True)
-    song_id = Column(Integer, ForeignKey("song.id"))
-    playlist_id = Column(Integer, ForeignKey("playlist.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    song_id: Mapped[int] = mapped_column(Integer, ForeignKey("song.id"))
+    playlist_id: Mapped[int] = mapped_column(Integer, ForeignKey("playlist.id"))
 
-    song = relationship("Song", back_populates="playlists")
-    playlist = relationship("Playlist", back_populates="songs")
+    #song_id: Mapped[int] = mapped_column(ForeignKey("songs.id"))
+
+    song: Mapped[List["Song"]] = relationship(back_populates="playlists")
+    playlist: Mapped[List["Playlist"]] = relationship(back_populates="songs")
 
 class Song(Base):
     __tablename__ = "song"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    album_id = Column(Integer, ForeignKey("album.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    name: Mapped[str] = Column(String, index=True)
+    album_id: Mapped[int] = mapped_column(Integer, ForeignKey("album.id"))
 
-    album = relationship("Album", back_populates="songs")
-    artists = relationship("SongArtist", back_populates="songs")
-    playlists = relationship("SongPlaylist", back_populates="songs")
+    album: Mapped[List["Album"]] = relationship(back_populates="songs")
+    artists: Mapped[List["SongArtist"]] = relationship(back_populates="songs")
+    playlists: Mapped[List["SongPlaylist"]] = relationship(back_populates="songs")
+
+    #artist = relationship("Artist", back_populates="songs")

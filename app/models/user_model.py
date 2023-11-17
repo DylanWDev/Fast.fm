@@ -1,15 +1,17 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, ForeignKey, Table, TIMESTAMP
+from typing import List
+from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
+from app.models.playlist_model import Playlist, PlaylistListener
 
 class User(Base):
     __tablename__ = "user"
 
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, index=True)
-    email = Column(String, index=True)
-    password = Column(String)
-    created_at = Column(String)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    username: Mapped[str] = Column(String, index=True)
+    email: Mapped[str] = Column(String, index=True)
+    password: Mapped[str] = Column(String, index=True)
+    created_at: Mapped[str] = Column(String, index=True)
 
-    playlists = relationship("Playlist", back_populates="creator")
-    playlist_listeners = relationship("PlaylistListener", back_populates="listeners")
+    playlists: Mapped[List["Playlist"]] = relationship(back_populates="creator")
+    playlist_listeners: Mapped[List["PlaylistListener"]] = relationship(back_populates="listeners")

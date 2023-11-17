@@ -1,32 +1,35 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Table
-from sqlalchemy.orm import relationship
+from typing import List
+from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
+from app.models.album_model import Album
+from app.models.song_model import Song
 
 class AlbumArtist(Base):
     __tablename__ = "album_artist"
 
-    id = Column(Integer, primary_key=True, index=True)
-    album_id = Column(Integer, ForeignKey("album.id"))
-    artist_id = Column(Integer, ForeignKey("artist.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    album_id: Mapped[int] = mapped_column(Integer, ForeignKey("album.id"))
+    artist_id: Mapped[int] = mapped_column(Integer, ForeignKey("artist.id"))
 
-    album = relationship("Album", back_populates="artists")
-    artist = relationship("Artist", back_populates="albums")
+    album: Mapped[List["Album"]] = relationship(back_populates="artists")
+    artist: Mapped[List["Artist"]] = relationship(back_populates="albums")
 
 class SongArtist(Base):
     __tablename__ = "song_artist"
 
-    id = Column(Integer, primary_key=True, index=True)
-    song_id = Column(Integer, ForeignKey("song.id"))
-    artist_id = Column(Integer, ForeignKey("artist.id"))
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    song_id: Mapped[int] = mapped_column(Integer, ForeignKey("song.id"))
+    artist_id: Mapped[int] = mapped_column(Integer, ForeignKey("artist.id"))
 
-    song = relationship("Song", back_populates="artists")
-    artist = relationship("Artist", back_populates="songs")
+    song: Mapped[List["Song"]] = relationship(back_populates="artists")
+    artist: Mapped[List["Artist"]] = relationship(back_populates="songs")
 
 class Artist(Base):
     __tablename__ = "artist"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    name: Mapped[str] = Column(String, index=True)
 
-    albums = relationship("AlbumArtist", back_populates="artists")
-    songs = relationship("SongArtist", back_populates="artists")
+    albums: Mapped[List["AlbumArtist"]] = relationship(back_populates="artists")
+    songs: Mapped[List["SongArtist"]] = relationship(back_populates="artists")
