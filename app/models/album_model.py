@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from typing import List
 from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
-from app.models.artist_model import AlbumArtist
-from app.models.song_model import Song
 
 
 class Album(Base):

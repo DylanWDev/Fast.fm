@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table
 from typing import List
 from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
-from app.models.user_model import User
-from app.models.song_model import SongPlaylist
 
 
 class PlaylistListener(Base):

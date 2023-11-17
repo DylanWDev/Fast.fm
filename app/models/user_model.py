@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Table, TIMESTAMP
 from typing import List
 from sqlalchemy.orm import relationship, Mapped, relationships, mapped_column
 from database import Base
-from app.models.playlist_model import Playlist, PlaylistListener
+
 
 class User(Base):
     __tablename__ = "user"
