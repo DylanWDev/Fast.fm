@@ -1,14 +1,15 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from app.models.base_model import CustomBase
+from database import Base
 
-class User(CustomBase):
+class User(Base):
     __tablename__ = "user"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String)
-    email = Column(String)
+    username = Column(String, index=True)
+    email = Column(String, index=True)
     password = Column(String)
-    created_at = Column(TIMESTAMP)
-
-    playlists = relationship("PlaylistListener", back_populates="user")
+    created_at = Column(String)
+    
+    playlists = relationship("Playlist", back_populates="creator")
+    playlist_listeners = relationship("Playlist", secondary="playlist_listener", back_populates="listeners")
